@@ -5,6 +5,6 @@ string is a palindrome or not. If yes, print "YES" (without quotes),
 else print "NO" (without quotes).
 ```
 
-*Example jahaj => Reverse(jahaj)=jahaj
+* Example jahaj => Reverse(jahaj)=jahaj
 
 So program will print message **YES**
