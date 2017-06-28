@@ -1,4 +1,4 @@
-# Scala Tutorial by ~~ Maniram Yadav ~~
+# Scala Tutorial by * Maniram Yadav *
 
  Learn by scala examples.
    
