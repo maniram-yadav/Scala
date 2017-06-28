@@ -1,5 +1,5 @@
 # Scala Tutorial by *Maniram Yadav*
-@octocat :+1: This PR looks great - it's ready to merge! :shipit:
+@maniram_ :sunglasses: This PR looks great - it's ready to merge! :sunglasses:
 
 
  Learn by scala examples.
