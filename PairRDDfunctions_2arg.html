@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb# -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>PairRDDfunctions_2arg</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="shortcut icon" type="image/x-icon" href="http://localhost:9001/assets/images/favicon.png">
+
+        <link href="./PairRDDfunctions_2arg_files/css" rel="stylesheet" type="text/css">
+
+        <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/jquery-ui.min.css" type="text/css">
+        <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/jquery.gridster.min.css" type="text/css">
+
+        <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/c3.min.css" type="text/css">
+        <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/pivot.css" type="text/css">
+        <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/radar-chart.css" type="text/css">
+        <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/d3.parcoords.css" type="text/css">
+        <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/tauCharts.min.css" type="text/css">
+
+        
+  <!-- stylesheet -->
+
+  <script type="text/javascript">
+    window.mathjax_url = this.location.protocol + "//cdn.mathjax.org/mathjax/latest/MathJax.js";
+  </script>
+  <script src="./PairRDDfunctions_2arg_files/MathJax.js" id=""></script>
+
+  <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/bootstrap.css" type="text/css">
+  <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/bootstrap-tour.min.css" type="text/css">
+  <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/codemirror.css">
+  <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/style.min.css" type="text/css">
+  <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/override.css" type="text/css">
+  <link rel="stylesheet" href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb" id="kernel-css" type="text/css">
+  <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/bokeh.css" type="text/css">
+  <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/rickshaw.min.css" type="text/css">
+  <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/leaflet.css" type="text/css">
+  <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/L.Control.MousePosition.css" type="text/css">
+  <!-- tweaks for report mode, if it is active -->
+    
+  <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/user_custom.css" type="text/css">
+
+        
+        <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/jquery.dynatable.css" type="text/css">
+        <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/MarkerCluster.Default.css" type="text/css">
+        <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/MarkerCluster.css" type="text/css">
+        <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/joint.min.css" type="text/css">
+        <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/custom.css" type="text/css">
+        <link rel="stylesheet" href="./PairRDDfunctions_2arg_files/user_custom.css" type="text/css">
+
+        <script src="./PairRDDfunctions_2arg_files/promise.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="./PairRDDfunctions_2arg_files/require.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- needed to fix pivottable/C3 issues on chrome v48+, see https://github.com/masayuki0812/c3/issues/1566 -->
+        <script src="./PairRDDfunctions_2arg_files/pathseg-chrome-svg-fix.js" type="text/javascript" charset="utf-8"></script>
+        <script>
+      require.config({
+        
+        baseUrl: '/assets//ipython/',
+        paths: {
+          nbextensions : '/nbextensions',
+          kernelspecs : '/kernelspecs',
+          underscore : '/assets/javascripts/third/underscore-min',
+          plotly: '/assets/javascripts/third/plotly-latest.min',
+          taucharts_root: '/assets/javascripts/taucharts',
+          tauCharts : '/assets/javascripts/taucharts/tauCharts',
+          backbone : 'components/backbone/backbone-min',
+          jquery: 'components/jquery/jquery.min',
+          bootstrap: 'components/bootstrap/js/bootstrap.min',
+          bootstraptour: 'components/bootstrap-tour/build/js/bootstrap-tour.min',
+          jqueryui: 'components/jquery-ui/ui/minified/jquery-ui.min',
+          moment: 'components/moment/moment',
+          codemirror: 'components/codemirror',
+          termjs: 'components/term.js/src/term',
+          leaflet: '/assets/javascripts/third/leaflet',
+          lodash: '/assets/javascripts/third/lodash',
+          joint: '/assets/javascripts/third/joint/joint.min',
+          LeafletMousePosition: '/assets/javascripts/third/LControlMousePosition',
+          LeafletMarkerCluster: '/assets/javascripts/third/leaflet-ext/markercluster-src',
+          proj4: '/assets/javascripts/third/proj4',
+          epsg: '/assets/javascripts/third/epsg',
+          proj4leaflet: '/assets/javascripts/third/proj4leaflet',
+          highcharts: '/assets/javascripts/third/highcharts',
+          highchartsExporting: '/assets/javascripts/third/exporting',
+          highchartsMore: '/assets/javascripts/third/highcharts-more',
+
+          svgAsPng: '/assets/javascripts/third/saveSvgAsPng',
+          dynatable: '/assets/javascripts/third/dynatable/jquery.dynatable',
+          knockout: '/assets/javascripts/third/knockout',
+          'knockout-bootstrap': '/assets/javascripts/third/knockout-bootstrap.min',
+          c3: '/assets/javascripts/third/c3.min',
+          d3: '/assets/javascripts/third/d3',
+          dimple: '/assets/javascripts/third/dimple.v2.1.2',
+          pivot: '/assets/javascripts/third/pivot',
+          pivotD3: '/assets/javascripts/third/d3_renderers',
+          pivotC3: '/assets/javascripts/third/c3_renderers',
+          pivotExport: '/assets/javascripts/third/export_renderers',
+          parcoords: '/assets/javascripts/third/d3-pc/d3.parcoords',
+          rickshaw: '/assets/javascripts/third/rickshaw/rickshaw',
+          radarChart: '/assets/javascripts/third/d3-radar/radar-chart',
+          'jquery.gridster': '/assets/javascripts/third/jquery/js/jquery.gridster.min',
+          wizard: '/assets/javascripts/third/jquery/js/jquery.bootstrap.wizard.min',
+          observable: '/assets/javascripts/notebook/observable',
+          equiv: '/assets/javascripts/notebook/equiv',
+          chat: '/assets/javascripts/notebook/chat',
+          job_progress: '/assets/javascripts/notebook/job_progress',
+          sidebar: '/assets/javascripts/notebook/sidebar',
+          //'jwerty.js': '/assets/javascripts/third/jwerty.js'
+        },
+        shim: {
+          underscore: {
+            exports: '_'
+          },
+          backbone: {
+            deps: ["underscore", "jquery"],
+            exports: "Backbone"
+          },
+          bootstrap: {
+            deps: ["jquery"],
+            exports: "bootstrap"
+          },
+          bootstraptour: {
+            deps: ["bootstrap"],
+            exports: "Tour"
+          },
+          jqueryui: {
+            deps: ["jquery"],
+            exports: "$"
+          }
+        }
+      });
+
+      require.config({
+        map: {
+        '*':{
+          'contents': 'services/contents'
+        }
+        }
+      });
+    </script>
+
+        
+  <!-- meta -->
+
+
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="base/js/namespace" src="./PairRDDfunctions_2arg_files/namespace.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery" src="./PairRDDfunctions_2arg_files/jquery.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/notebook" src="./PairRDDfunctions_2arg_files/notebook.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="services/contents" src="./PairRDDfunctions_2arg_files/contents.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="services/config" src="./PairRDDfunctions_2arg_files/config.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="base/js/utils" src="./PairRDDfunctions_2arg_files/utils.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="base/js/page" src="./PairRDDfunctions_2arg_files/page.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="base/js/events" src="./PairRDDfunctions_2arg_files/events.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="auth/js/loginwidget" src="./PairRDDfunctions_2arg_files/loginwidget.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/maintoolbar" src="./PairRDDfunctions_2arg_files/maintoolbar.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/pager" src="./PairRDDfunctions_2arg_files/pager.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/quickhelp" src="./PairRDDfunctions_2arg_files/quickhelp.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/menubar" src="./PairRDDfunctions_2arg_files/menubar.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/notificationarea" src="./PairRDDfunctions_2arg_files/notificationarea.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/savewidget" src="./PairRDDfunctions_2arg_files/savewidget.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/actions" src="./PairRDDfunctions_2arg_files/actions.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/keyboardmanager" src="./PairRDDfunctions_2arg_files/keyboardmanager.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/kernelselector" src="./PairRDDfunctions_2arg_files/kernelselector.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/lib/codemirror" src="./PairRDDfunctions_2arg_files/codemirror.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/about" src="./PairRDDfunctions_2arg_files/about.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="custom/custom" src="./PairRDDfunctions_2arg_files/custom.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="job_progress" src="./PairRDDfunctions_2arg_files/job_progress.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="sidebar" src="./PairRDDfunctions_2arg_files/sidebar.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="chat" src="./PairRDDfunctions_2arg_files/chat.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="moment" src="./PairRDDfunctions_2arg_files/moment.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/mode/meta" src="./PairRDDfunctions_2arg_files/meta.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="base/js/dialog" src="./PairRDDfunctions_2arg_files/dialog.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/cell" src="./PairRDDfunctions_2arg_files/cell.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/textcell" src="./PairRDDfunctions_2arg_files/textcell.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/codecell" src="./PairRDDfunctions_2arg_files/codecell.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="services/sessions/session" src="./PairRDDfunctions_2arg_files/session.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/celltoolbar" src="./PairRDDfunctions_2arg_files/celltoolbar.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="components/marked/lib/marked" src="./PairRDDfunctions_2arg_files/marked.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/addon/runmode/runmode" src="./PairRDDfunctions_2arg_files/runmode.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/mathjaxutils" src="./PairRDDfunctions_2arg_files/mathjaxutils.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="base/js/keyboard" src="./PairRDDfunctions_2arg_files/keyboard.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/tooltip" src="./PairRDDfunctions_2arg_files/tooltip.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/celltoolbarpresets/default" src="./PairRDDfunctions_2arg_files/default.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/celltoolbarpresets/rawcell" src="./PairRDDfunctions_2arg_files/rawcell.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/celltoolbarpresets/slideshow" src="./PairRDDfunctions_2arg_files/slideshow.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/celltoolbarpresets/presentation" src="./PairRDDfunctions_2arg_files/presentation.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/scrollmanager" src="./PairRDDfunctions_2arg_files/scrollmanager.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/toolbar" src="./PairRDDfunctions_2arg_files/toolbar.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/tour" src="./PairRDDfunctions_2arg_files/tour.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="base/js/notificationarea" src="./PairRDDfunctions_2arg_files/notificationarea(1).js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="knockout" src="./PairRDDfunctions_2arg_files/knockout.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="d3" src="./PairRDDfunctions_2arg_files/d3.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="dimple" src="./PairRDDfunctions_2arg_files/dimple.v2.1.2.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/addon/edit/matchbrackets" src="./PairRDDfunctions_2arg_files/matchbrackets.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/addon/edit/closebrackets" src="./PairRDDfunctions_2arg_files/closebrackets.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/addon/comment/comment" src="./PairRDDfunctions_2arg_files/comment.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jqueryui" src="./PairRDDfunctions_2arg_files/jquery-ui.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="bootstrap" src="./PairRDDfunctions_2arg_files/bootstrap.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="jquery.gridster" src="./PairRDDfunctions_2arg_files/jquery.gridster.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="base/js/security" src="./PairRDDfunctions_2arg_files/security.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/mode/gfm/gfm" src="./PairRDDfunctions_2arg_files/gfm.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/codemirror-ipythongfm" src="./PairRDDfunctions_2arg_files/codemirror-ipythongfm.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/outputarea" src="./PairRDDfunctions_2arg_files/outputarea.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/completer" src="./PairRDDfunctions_2arg_files/completer.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/mode/clike/clike" src="./PairRDDfunctions_2arg_files/clike.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/mode/python/python" src="./PairRDDfunctions_2arg_files/python.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/mode/sql/sql" src="./PairRDDfunctions_2arg_files/sql.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/mode/shell/shell" src="./PairRDDfunctions_2arg_files/shell.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/codemirror-ipython" src="./PairRDDfunctions_2arg_files/codemirror-ipython.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="services/kernels/kernel" src="./PairRDDfunctions_2arg_files/kernel.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="underscore" src="./PairRDDfunctions_2arg_files/underscore-min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="base/js/notificationwidget" src="./PairRDDfunctions_2arg_files/notificationwidget.js"></script><style type="text/css"> [data-col="2"] { left:162.75px; }
+ [data-col="1"] { left:0px; }
+ [data-row="16"] { top:750px; }
+ [data-row="15"] { top:700px; }
+ [data-row="14"] { top:650px; }
+ [data-row="13"] { top:600px; }
+ [data-row="12"] { top:550px; }
+ [data-row="11"] { top:500px; }
+ [data-row="10"] { top:450px; }
+ [data-row="9"] { top:400px; }
+ [data-row="8"] { top:350px; }
+ [data-row="7"] { top:300px; }
+ [data-row="6"] { top:250px; }
+ [data-row="5"] { top:200px; }
+ [data-row="4"] { top:150px; }
+ [data-row="3"] { top:100px; }
+ [data-row="2"] { top:50px; }
+ [data-row="1"] { top:0px; }
+ [data-sizey="1"] { height:50px; }
+ [data-sizey="2"] { height:100px; }
+ [data-sizey="3"] { height:150px; }
+ [data-sizey="4"] { height:200px; }
+ [data-sizey="5"] { height:250px; }
+ [data-sizey="6"] { height:300px; }
+ [data-sizey="7"] { height:350px; }
+ [data-sizey="8"] { height:400px; }
+ [data-sizey="9"] { height:450px; }
+ [data-sizey="10"] { height:500px; }
+ [data-sizey="11"] { height:550px; }
+ [data-sizey="12"] { height:600px; }
+ [data-sizey="13"] { height:650px; }
+ [data-sizey="14"] { height:700px; }
+ [data-sizey="15"] { height:750px; }
+ [data-sizex="1"] { width:162.75px; }
+ [data-sizex="2"] { width:325.5px; }
+</style><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="bootstraptour" src="./PairRDDfunctions_2arg_files/bootstrap-tour.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="components/google-caja/html-css-sanitizer-minified" src="./PairRDDfunctions_2arg_files/html-css-sanitizer-minified.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="notebook/js/contexthint" src="./PairRDDfunctions_2arg_files/contexthint.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/mode/markdown/markdown" src="./PairRDDfunctions_2arg_files/markdown.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/addon/mode/overlay" src="./PairRDDfunctions_2arg_files/overlay.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="svgAsPng" src="./PairRDDfunctions_2arg_files/saveSvgAsPng.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/addon/mode/multiplex" src="./PairRDDfunctions_2arg_files/multiplex.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/mode/stex/stex" src="./PairRDDfunctions_2arg_files/stex.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="services/kernels/comm" src="./PairRDDfunctions_2arg_files/comm.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="services/kernels/serialize" src="./PairRDDfunctions_2arg_files/serialize.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/init" src="./PairRDDfunctions_2arg_files/init.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="codemirror/mode/xml/xml" src="./PairRDDfunctions_2arg_files/xml.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/manager" src="./PairRDDfunctions_2arg_files/manager.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/widget_link" src="./PairRDDfunctions_2arg_files/widget_link.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/widget_bool" src="./PairRDDfunctions_2arg_files/widget_bool.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/widget_button" src="./PairRDDfunctions_2arg_files/widget_button.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/widget_box" src="./PairRDDfunctions_2arg_files/widget_box.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/widget_float" src="./PairRDDfunctions_2arg_files/widget_float.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/widget_image" src="./PairRDDfunctions_2arg_files/widget_image.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/widget_int" src="./PairRDDfunctions_2arg_files/widget_int.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/widget_output" src="./PairRDDfunctions_2arg_files/widget_output.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/widget_selection" src="./PairRDDfunctions_2arg_files/widget_selection.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/widget_selectioncontainer" src="./PairRDDfunctions_2arg_files/widget_selectioncontainer.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/widget_string" src="./PairRDDfunctions_2arg_files/widget_string.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="widgets/js/widget" src="./PairRDDfunctions_2arg_files/widget.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="backbone" src="./PairRDDfunctions_2arg_files/backbone-min.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 0; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax_LineBox {display: table!important}
+.MathJax_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Blank; src: url('about:blank')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="observable" src="./PairRDDfunctions_2arg_files/observable.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="equiv" src="./PairRDDfunctions_2arg_files/equiv.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="../javascripts/notebook/playground" src="./PairRDDfunctions_2arg_files/playground.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="../javascripts/notebook/magic/tabs" src="./PairRDDfunctions_2arg_files/tabs.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="../javascripts/notebook/magic/tableChart" src="./PairRDDfunctions_2arg_files/tableChart.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="../javascripts/notebook/magic/pieChart" src="./PairRDDfunctions_2arg_files/pieChart.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="../javascripts/notebook/magic/pivotChart" src="./PairRDDfunctions_2arg_files/pivotChart.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="dynatable" src="./PairRDDfunctions_2arg_files/jquery.dynatable.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="c3" src="./PairRDDfunctions_2arg_files/c3.min.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="pivot" src="./PairRDDfunctions_2arg_files/pivot.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="pivotC3" src="./PairRDDfunctions_2arg_files/c3_renderers.js"></script><script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="pivotExport" src="./PairRDDfunctions_2arg_files/export_renderers.js"></script></head>
+
+        <!-- todo bodyclasses (=notebook_app for notebook.scala.html)  â†’ class="" -->
+    <body class="notebook notebook_app data command_mode" data-read-only="false" data-base-project-url="/" data-notebook-writable="true" data-ws-url=" window.notebookWsUrl = function() { return ((window.location.protocol==&#39;https:&#39;) ? &#39;wss&#39; : &#39;ws&#39;)+&#39;://&#39;+window.location.host+&#39;/ws&#39; };       " data-base-url="/" data-base-observable-url=" window.notebookWsUrl = function() { return ((window.location.protocol==&#39;https:&#39;) ? &#39;wss&#39; : &#39;ws&#39;)+&#39;://&#39;+window.location.host+&#39;/ws/observable&#39; };       " data-notebook-path="PairRDDfunctions.snb" data-notebook-name="Spark Notebook" data-base-kernel-url="/" data-presentation="edit" style=""><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+
+        <noscript>
+            &lt;div id='noscript'&gt;
+                Spark Notebook requires JavaScript.&lt;br&gt;
+                Please enable it to proceed.
+            &lt;/div&gt;
+        </noscript>
+
+        <div id="header" style="display: block;">
+            <div id="header-container" class="container">
+                <div id="ipython_notebook" class="nav navbar-brand pull-left"><a href="http://localhost:9001/" title="dashboard"><img src="./PairRDDfunctions_2arg_files/logo.png" alt="Spark Notebook"> Spark Notebook</a></div>
+
+  <!--
+  {% block login_widget %}
+
+  <span id="login_widget">
+    {% if logged_in %}
+    <button id="logout" class="btn btn-sm navbar-btn">Logout</button>
+    {% elif login_available and not logged_in %}
+    <button id="login" class="btn btn-sm navbar-btn">Login</button>
+    {% endif %}
+  </span>
+
+  {% endblock %}
+  -->
+
+                
+  <!-- headercontainer -->
+  <span id="save_widget" class="pull-left save_widget">
+      <span id="notebook_name" class="filename">PairRDDfunctions_2arg</span>
+      <span class="checkpoint_status" title="Fri, Jan 2, 2015 6:52 PM">Last Checkpoint: 01/02/2015</span>
+      <span class="autosave_status">(autosaved)</span>
+  </span>
+
+  <span id="kernel_logo_widget">
+    <img class="current_kernel_logo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="display: none;">
+  </span>
+
+            </div>
+
+            <div class="header-bar"></div>
+
+            
+
+<div id="menubar-container" class="container">
+<div id="menubar">
+    <div id="menus" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <button type="button" class="btn btn-default navbar-btn navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <i class="fa fa-bars"></i>
+              <span class="navbar-text">Menu</span>
+            </button>
+            <p id="kernel_indicator" class="navbar-text">
+              <span class="kernel_indicator_name">Scala [2.11.7] Spark [1.6.3] Hadoop [2.7.2]  </span>
+              <i id="kernel_indicator_icon" class="kernel_idle_icon" title="Kernel Idle"></i>
+            </p>
+            <i id="modal_indicator" class="navbar-text modal_indicator" title="Command Mode"></i>
+            <span id="notification_area"><div id="notification_kernel" class="notification_widget btn btn-xs navbar-btn undefined info" style="display: none;"><span></span></div><div id="notification_notebook" class="notification_widget btn btn-xs navbar-btn" style="display: none;"><span></span></div></span>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="dropdown"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">File</a>
+                    <ul id="file_menu" class="dropdown-menu">
+                        <li id="new_notebook" class="dropdown-submenu">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">New Notebook</a>
+                            <ul class="dropdown-menu" id="menu-new-notebook-submenu"><li id="new-notebook-submenu-spark"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Scala [2.11.7] Spark [1.6.3] Hadoop [2.7.2]  </a></li></ul>
+                        </li>
+                        <li id="open_notebook" title="Opens a new window with the Dashboard view">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Open...</a></li>
+                        <!-- <hr/> -->
+                        <li class="divider"></li>
+                        <li id="copy_notebook" title="Open a copy of this notebook&#39;s contents and start a new kernel">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Make a Copy...</a></li>
+                        <li id="rename_notebook"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Rename/move...</a></li>
+                        <!--
+                        <li id="save_checkpoint"><a href="#">Save and Checkpoint</a></li>
+                        <hr/>
+                        <li class="divider"></li>
+                        <li id="restore_checkpoint" class="dropdown-submenu"><a href="#">Revert to Checkpoint</a>
+                          <ul class="dropdown-menu">
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                            <li><a href="#"></a></li>
+                          </ul>
+                        </li>
+                        -->
+
+                        <li class="divider"></li>
+
+                        <!-- <li id="print_preview"><a href="#">Print Preview</a></li> -->
+                        <li class="dropdown-submenu"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Download as</a>
+                            <ul class="dropdown-menu">
+                                <li id="download_snb"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Spark Notebook (.snb)</a></li>
+                                <li id="download_scala"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Scala (scala)</a></li>
+                                <!-- <li id="download_html"><a href="#">HTML (.html)</a></li>
+                                <li id="download_rst"><a href="#">reST (.rst)</a></li> -->
+                                <li id="download_markdown"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Markdown (.md)</a></li>
+                                <li id="download_pdf"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">PDF (.pdf)</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <!--
+                        <li id="trust_notebook"
+                            title="Trust the output of this notebook">
+                            <a href="#" >Trust Notebook</a></li>
+                        <li class="divider"></li>
+                        -->
+                        <li id="kill_and_exit" title="Shutdown this notebook&#39;s kernel, and close this window">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Close and halt</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#" class="dropdown-toggle" data-toggle="dropdown">Edit</a>
+                    <ul id="edit_menu" class="dropdown-menu">
+                        <li id="cut_cell"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Cut Cell</a></li>
+                        <li id="copy_cell"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Copy Cell</a></li>
+                        <li id="paste_cell_above" class="disabled"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Paste Cell Above</a></li>
+                        <li id="paste_cell_below" class="disabled"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Paste Cell Below</a></li>
+                        <li id="paste_cell_replace" class="disabled"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Paste Cell &amp; Replace</a></li>
+                        <li id="delete_cell"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Delete Cell</a></li>
+                        <li id="undelete_cell" class="disabled"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Undo Delete Cell</a></li>
+                        <li class="divider"></li>
+                        <li id="split_cell"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Split Cell</a></li>
+                        <li id="merge_cell_above"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Merge Cell Above</a></li>
+                        <li id="merge_cell_below"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Merge Cell Below</a></li>
+                        <li class="divider"></li>
+                        <li id="move_cell_up"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Move Cell Up</a></li>
+                        <li id="move_cell_down"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Move Cell Down</a></li>
+                        <li class="divider"></li>
+                        <li id="edit_nb_metadata"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Edit Notebook Metadata</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#" class="dropdown-toggle" data-toggle="dropdown">View</a>
+                    <ul id="view_menu" class="dropdown-menu">
+                        <li id="toggle-sidebar-menu-item">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#" id="toggle-sidebar">Toggle sidebar (error logs, status, etc)</a>
+                        </li>
+                        <li id="link-to-spark-ui" class="">
+                            <a href="http://192.168.43.30:4043/" target="_blank">Open Spark UI</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li id="read_only_view">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb?read_only=1" target="_blank">
+                                Read-only (save resources, no autosave conflicts)
+                            </a>
+                        </li>
+                        <li id="report_view">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb?presentation=report&amp;read_only=1" target="_blank">Results only report (read only)</a>
+                        </li>
+                        <li id="report_view_auto_refresh">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb?presentation=report&amp;recompute_now=true" target="_blank">
+                                Self-updating Report (results only; recompute on load)
+                            </a>
+                        </li>
+                        <!--
+                        <li class="divider"></li>
+                        <li id="toggle_header"
+                            title="Show/Hide the IPython Notebook logo and notebook title (above menu bar)">
+                            <a href="#">Toggle Header</a></li>
+                        <li id="toggle_toolbar"
+                            title="Show/Hide the action icons (below menu bar)">
+                            <a href="#">Toggle Toolbar</a></li>
+                         -->
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#" class="dropdown-toggle" data-toggle="dropdown">Insert</a>
+                    <ul id="insert_menu" class="dropdown-menu">
+                        <li id="insert_cell_above" title="Insert an empty Code cell above the currently active cell">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Insert Cell Above</a></li>
+                        <li id="insert_cell_below" title="Insert an empty Code cell below the currently active cell">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Insert Cell Below</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#" class="dropdown-toggle" data-toggle="dropdown">Cell</a>
+                    <ul id="cell_menu" class="dropdown-menu">
+                        <li id="run_cell" title="Run this cell, and move cursor to the next one">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Run</a></li>
+                        <li id="run_cell_select_below" title="Run this cell, select below">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Run and Select Below</a></li>
+                        <li id="run_cell_insert_below" title="Run this cell, insert below">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Run and Insert Below</a></li>
+                        <li id="run_all_cells" title="Run all cells in the notebook">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Run All</a></li>
+                        <li id="run_all_cells_above" title="Run all cells above (but not including) this cell">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Run All Above</a></li>
+                        <li id="run_all_cells_below" title="Run this cell and all cells below it">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Run All Below</a></li>
+                        <li class="divider"></li>
+                        <li id="change_cell_type" class="dropdown-submenu" title="All cells in the notebook have a cell type. By default, new cells are created as &#39;Code&#39; cells">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Cell Type</a>
+                            <ul class="dropdown-menu">
+                              <li id="to_code" title="Contents will be sent to the kernel for execution, and output will display in the footer of cell">
+                                  <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Code</a></li>
+                              <li id="to_markdown" title="Contents will be rendered as HTML and serve as explanatory text">
+                                  <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Markdown</a></li>
+                              <li id="to_raw" title="Contents will pass through nbconvert unmodified">
+                                  <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Raw NBConvert</a></li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li id="current_inputs" class="dropdown-submenu"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Current Input</a>
+                            <ul class="dropdown-menu">
+                                <li id="toggle_current_input" title="Hide/Show the input of the current cell">
+                                    <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Toggle</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li id="all_inputs" class="dropdown-submenu"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">All Input</a>
+                            <ul class="dropdown-menu">
+                                <li id="toggle_all_input" title="Hide/Show the input of all cells">
+                                    <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Toggle</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="divider"></li>
+                        <li id="current_output_streams" class="dropdown-submenu"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Output Streams</a>
+                            <ul class="dropdown-menu">
+                                <li id="toggle_current_output_stream" title="Hide/Show the output stream of the current cell">
+                                    <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Toggle</a>
+                                </li>
+                                <li id="toggle_all_output_stream" title="Hide/Show the output stream of all cells">
+                                    <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Toggle All</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li id="current_outputs" class="dropdown-submenu"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Current Output</a>
+                            <ul class="dropdown-menu">
+                                <li id="toggle_current_output" title="Hide/Show the output of the current cell">
+                                    <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Toggle</a>
+                                </li>
+                                <li id="toggle_current_output_scroll" title="Scroll the output of the current cell">
+                                    <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Toggle Scrolling</a>
+                                </li>
+                                <li id="clear_current_output" title="Clear the output of the current cell">
+                                    <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Clear</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li id="all_outputs" class="dropdown-submenu"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">All Output</a>
+                            <ul class="dropdown-menu">
+                                <li id="toggle_all_output" title="Hide/Show the output of all cells">
+                                    <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Toggle</a>
+                                </li>
+                                <li id="toggle_all_output_scroll" title="Scroll the output of all cells">
+                                    <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Toggle Scrolling</a>
+                                </li>
+                                <li id="clear_all_output" title="Clear the output of all cells">
+                                    <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Clear</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#" class="dropdown-toggle" data-toggle="dropdown">Kernel</a>
+                    <ul id="kernel_menu" class="dropdown-menu">
+                        <li id="int_kernel" title="Stop the Kernel">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Stop</a>
+                        </li>
+                        <li id="restart_kernel" title="Restart the Kernel">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Restart</a>
+                        </li>
+                        <!---
+                        <li id="reconnect_kernel"
+                            title="Reconnect to the Kernel">
+                            <a href="#">Reconnect</a>
+                        </li>
+                        -->
+                        <li class="divider"></li>
+                        <li id="menu-change-kernel" class="dropdown-submenu">
+                            <a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Change kernel</a>
+                            <ul class="dropdown-menu" id="menu-change-kernel-submenu"><li id="kernel-submenu-spark"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Scala [2.11.7] Spark [1.6.3] Hadoop [2.7.2]  </a></li></ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#" class="dropdown-toggle" data-toggle="dropdown">Help</a>
+                    <ul id="help_menu" class="dropdown-menu">
+                        <li id="notebook_tour" title="A quick tour of the notebook user interface"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">User Interface Tour</a></li>
+                        <li id="keyboard_shortcuts" title="Opens a tooltip with all keyboard shortcuts"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">Keyboard Shortcuts</a></li>
+                        <li class="divider"></li>
+                        <li id="notebook_docs" title="documentation"><a href="http://localhost:9001/assets/docs/index.html" target="_blank">Docs</a></li>
+                        <!--{% set
+                            sections = (
+                                (
+                                    ("http://nbviewer.ipython.org/github/ipython/ipython/blob/3.x/examples/Notebook/Index.ipynb", "Notebook Help", True),
+                                    ("https://help.github.com/articles/markdown-basics/","Markdown",True),
+                                ),
+                            )
+                        %}-->
+
+                        <!-- {% for helplinks in sections %}
+                            {% for link in helplinks %}
+                                <li><a href="{{link[0]}}" {{'target="_blank" title="Opens in a new window"' if link[2]}}>
+                                {{'<i class="fa fa-external-link menu-icon pull-right"></i>' if link[2]}}
+                                {{link[1]}}
+                                </a></li>
+                            {% endfor %}
+                            {% if not loop.last %}
+                                <li class="divider"></li>
+                            {% endif %}
+                        {% endfor %} -->
+                        <li class="divider"></li>
+                        <li title="About Spark Notebook"><a id="notebook_about" href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#">About</a></li>
+                    </ul>
+                </li>
+              </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="maintoolbar" class="navbar">
+  <div class="toolbar-inner navbar-inner navbar-nobg">
+    <div id="maintoolbar-container" class="container toolbar"><div class="btn-group" id="save-notbook"><button class="btn btn-default" title="Save and Checkpoint" data-jupyter-action="ipython.save-notebook"><i class="fa-save fa"></i></button></div><div class="btn-group" id="insert_above_below"><button class="btn btn-default" title="insert cell after" data-jupyter-action="ipython.insert-cell-after"><i class="fa-plus fa"></i></button></div><div class="btn-group" id="cut_copy_paste"><button class="btn btn-default" title="cut selected cell" data-jupyter-action="ipython.cut-selected-cell"><i class="fa-cut fa"></i></button><button class="btn btn-default" title="copy selected cell" data-jupyter-action="ipython.copy-selected-cell"><i class="fa-copy fa"></i></button><button class="btn btn-default" title="paste cell after" data-jupyter-action="ipython.paste-cell-after"><i class="fa-paste fa"></i></button></div><div class="btn-group" id="move_up_down"><button class="btn btn-default" title="move selected cell up" data-jupyter-action="ipython.move-selected-cell-up"><i class="fa-arrow-up fa"></i></button><button class="btn btn-default" title="move selected cell down" data-jupyter-action="ipython.move-selected-cell-down"><i class="fa-arrow-down fa"></i></button></div><div class="btn-group" id="run_int"><button class="btn btn-default" title="run cell, select below" data-jupyter-action="ipython.run-select-next"><i class="fa-play fa"></i></button><button class="btn btn-default" title="stop kernel" data-jupyter-action="ipython.stop-kernel"><i class="fa-stop fa"></i></button><button class="btn btn-default" title="restart kernel" data-jupyter-action="ipython.restart-kernel"><i class="fa-repeat fa"></i></button><button class="btn btn-default" title="interrupt jobs" data-jupyter-action="ipython.interrupt-jobs"><i class="fa-fire fa"></i></button></div><select id="cell_type" class="form-control select-xs"><option value="code">Code</option><option value="markdown">Markdown</option><option value="raw">Raw NBConvert</option><option value="heading">Heading</option></select><div class="btn-group"><span class="navbar-text">Cell Toolbar:</span><select id="ctb_select" class="form-control select-xs"><option value="">None</option><option value="Edit Metadata">Edit Metadata</option><option value="Width (when multi-column)">Width (when multi-column)</option></select></div></div>
+  </div>
+</div>
+</div>
+
+<div class="lower-header-bar"></div>
+
+        </div>
+
+        <div id="site" style="display: block; height: 497px;">
+        
+  <div id="ipython-main-app">
+      <div id="notebook_panel" class="container-fluid">
+          <div id="notebook" class="col-md-12" tabindex="-1"><div class="container" id="notebook-container"><div class="cell code_cell rendered col-md-12 selected" tabindex="2" data-cell-id="558570B086E24D88B07C3F21F443FD83"><div class="input"><div class="prompt input_prompt">13:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 22.5938px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;" autocomplete="off"></textarea></div><div class="CodeMirror-vscrollbar" not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" not-content="true"></div><div class="CodeMirror-gutter-filler" not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 222px; margin-bottom: -15px; border-right-width: 15px; min-height: 62px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"><div class="CodeMirror-cursor" style="left: 0px; top: 17px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre><span style="padding-right: 0.1px;"><span class="cm-comment">// @Author : Maniram Yadav</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">print</span>(<span class="cm-variable">sc</span>)</span></pre></div></div></div></div></div><div style="position: absolute; height: 15px; width: 1px; top: 62px;"></div><div class="CodeMirror-gutters" style="display: none; height: 77px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to scroll output; double click to hide" style="display: block;"></div><div class="output" style=""><div class="output_area"><div class="prompt"></div><div class="output_subarea output_text output_stream output_stdout"><pre>org.apache.spark.SparkContext@6df24203</pre></div></div><div class="output_area"><div class="prompt output_prompt">13:</div><div class="output_subarea output_html rendered_html output_result"><div class="pull-right text-info"><small>Took: 1 second 82 milliseconds, at 2018-1-16 15:22</small></div></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div><div class="progress">          <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"><a class="cancel-cell-btn" style="display: none;">cancel</a></div>        </div></div><div class="cell code_cell rendered col-md-12 unselected" tabindex="2" data-cell-id="D1EB9D1EF686449286357702B96CB884"><div class="input"><div class="prompt input_prompt">14:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 226.594px; left: 22.4375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" not-content="true"></div><div class="CodeMirror-gutter-filler" not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 314.812px; margin-bottom: -15px; border-right-width: 15px; min-height: 249px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"><div class="CodeMirror-cursor" style="left: 16.8438px; top: 221px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code" style=""><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">val</span> <span class="cm-variable">rdd1</span> <span class="cm-operator">=</span> <span class="cm-variable">sc</span>.<span class="cm-variable">parallelize</span>(<span class="cm-keyword">Seq</span>(</span></pre><pre class=""><span style="padding-right: 0.1px;">                          (<span class="cm-string">"key1"</span>,<span class="cm-number">2</span>),</span></pre><pre class=""><span style="padding-right: 0.1px;">                          (<span class="cm-string">"key2"</span>,<span class="cm-number">1</span>),</span></pre><pre class=""><span style="padding-right: 0.1px;">                          (<span class="cm-string">"key3"</span>,<span class="cm-number">4</span>),</span></pre><pre class=""><span style="padding-right: 0.1px;">                          (<span class="cm-string">"key4"</span>,<span class="cm-number">7</span>),</span></pre><pre class=""><span style="padding-right: 0.1px;">                          (<span class="cm-string">"key5"</span>,<span class="cm-number">2</span>)</span></pre><pre class=""><span style="padding-right: 0.1px;">))</span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">val</span> <span class="cm-variable">rdd2</span> <span class="cm-operator">=</span> <span class="cm-variable">sc</span>.<span class="cm-variable">parallelize</span>(<span class="cm-keyword">Seq</span>(</span></pre><pre class=""><span style="padding-right: 0.1px;">                          (<span class="cm-string">"key1"</span>,<span class="cm-number">3</span>),</span></pre><pre class=""><span style="padding-right: 0.1px;">                          (<span class="cm-string">"key2"</span>,<span class="cm-number">9</span>),</span></pre><pre class=""><span style="padding-right: 0.1px;">                          (<span class="cm-string">"key3"</span>,<span class="cm-number">10</span>)</span></pre><pre class=""><span style="padding-right: 0.1px;">  </span></pre><pre class=""><span style="padding-right: 0.1px;">))</span></pre></div></div></div></div></div><div style="position: absolute; height: 15px; width: 1px; top: 249px;"></div><div class="CodeMirror-gutters" style="display: none; height: 264px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to scroll output; double click to hide" style="display: block;"></div><div class="output" style=""><div class="output_area"><div class="prompt"></div><div class="output_subarea output_text output_stream output_stdout"><pre>rdd1: org.apache.spark.rdd.RDD[(String, Int)] = ParallelCollectionRDD[86] at parallelize at &lt;console&gt;:56
+rdd2: org.apache.spark.rdd.RDD[(String, Int)] = ParallelCollectionRDD[87] at parallelize at &lt;console&gt;:64
+</pre></div></div><div class="output_area"><div class="prompt output_prompt">14:</div><div class="output_subarea output_html rendered_html output_result"><div class="pull-right text-info"><small>Took: 1 second 70 milliseconds, at 2018-1-16 15:22</small></div></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div><div class="progress">          <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"><a class="cancel-cell-btn" style="display: none;">cancel</a></div>        </div></div><div class="cell code_cell col-md-12 unrendered unselected" tabindex="2" data-cell-id="95E78D4FE47245EA845D8239060A5230"><div class="input"><div class="prompt input_prompt">12:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 165.594px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" not-content="true"></div><div class="CodeMirror-gutter-filler" not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="false"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 373.844px; margin-bottom: -15px; border-right-width: 15px; min-height: 181px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style=""><div class="CodeMirror-cursor" style="left: 160px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code" style=""><pre><span style="padding-right: 0.1px;">  <span class="cm-comment">//   RDD Join Function </span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">println</span>(<span class="cm-string">"Join of RDD1 to RDD2 "</span>)</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">rdd1</span>.<span class="cm-variable">join</span>(<span class="cm-variable">rdd2</span>) <span class="cm-variable">foreach</span> <span class="cm-keyword">println</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">println</span>(<span class="cm-string">"Join of RDD2 to RDD1 "</span>)</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">rdd2</span>.<span class="cm-variable">join</span>(<span class="cm-variable">rdd1</span>) <span class="cm-variable">foreach</span> <span class="cm-keyword">println</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">println</span>(<span class="cm-string">"Left Outer Join of RDD1 to RDD2 "</span>)</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">rdd1</span>.<span class="cm-variable">leftOuterJoin</span>(<span class="cm-variable">rdd2</span>) <span class="cm-variable">foreach</span> <span class="cm-keyword">println</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">println</span>(<span class="cm-string">"Right Outer Join of RDD1 to RDD2 "</span>)</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">rdd1</span>.<span class="cm-variable">rightOuterJoin</span>(<span class="cm-variable">rdd1</span>) <span class="cm-variable">foreach</span> <span class="cm-keyword">println</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 15px; width: 1px; top: 181px;"></div><div class="CodeMirror-gutters" style="display: none; height: 196px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to scroll output; double click to hide" style="display: block;"></div><div class="output" style=""><div class="output_area"><div class="prompt"></div><div class="output_subarea output_text output_stream output_stdout"><pre>Join of RDD1 to RDD2 
+(key3,(4,10))
+(key2,(1,9))
+(key1,(2,3))
+Join of RDD2 to RDD1 
+(key2,(9,1))
+(key3,(10,4))
+(key1,(3,2))
+Left Outer Join of RDD1 to RDD2 
+(key5,(2,None))
+(key1,(2,Some(3)))
+(key2,(1,Some(9)))
+(key4,(7,None))
+(key3,(4,Some(10)))
+Right Outer Join of RDD1 to RDD2 
+(key3,(Some(4),4))
+(key5,(Some(2),2))
+(key1,(Some(2),2))
+(key4,(Some(7),7))
+(key2,(Some(1),1))
+</pre></div></div><div class="output_area"><div class="prompt output_prompt">12:</div><div class="output_subarea output_html rendered_html output_result"><div class="pull-right text-info"><small>Took: 1 second 840 milliseconds, at 2018-1-16 15:22</small></div></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div><div class="progress">          <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style=""><a class="cancel-cell-btn" style="display: none;">cancel</a></div>        </div></div><div class="cell code_cell rendered col-md-12 unselected" tabindex="2" data-cell-id="F410D452074D4BF0ADD72D4FFE24B054"><div class="input"><div class="prompt input_prompt">17:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 39.5938px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" not-content="true"></div><div class="CodeMirror-gutter-filler" not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 289.516px; margin-bottom: -15px; border-right-width: 15px; min-height: 62px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre>x</pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"><div class="CodeMirror-cursor" style="left: 0px; top: 34px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">//    RDD cogroup  method</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre><span style="padding-right: 0.1px;"><span class="cm-variable">rdd1</span>.<span class="cm-variable">cogroup</span>(<span class="cm-variable">rdd2</span>) <span class="cm-variable">foreach</span> <span class="cm-keyword">println</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 15px; width: 1px; top: 62px;"></div><div class="CodeMirror-gutters" style="display: none; height: 77px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to scroll output; double click to hide" style="display: block;"></div><div class="output" style=""><div class="output_area"><div class="prompt"></div><div class="output_subarea output_text output_stream output_stdout"><pre>(key5,(CompactBuffer(2),CompactBuffer()))
+(key1,(CompactBuffer(2),CompactBuffer(3)))
+(key4,(CompactBuffer(7),CompactBuffer()))
+(key3,(CompactBuffer(4),CompactBuffer(10)))
+(key2,(CompactBuffer(1),CompactBuffer(9)))
+</pre></div></div><div class="output_area"><div class="prompt output_prompt">17:</div><div class="output_subarea output_html rendered_html output_result"><div class="pull-right text-info"><small>Took: 1 second 282 milliseconds, at 2018-1-16 15:25</small></div></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div><div class="progress">          <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style=""><a class="cancel-cell-btn" style="display: none;">cancel</a></div>        </div></div><div class="cell code_cell rendered col-md-12 unselected" tabindex="2" data-cell-id="89F507148F774515BD790DB1462F16A8"><div class="input"><div class="prompt input_prompt">33:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 266.594px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" not-content="true"></div><div class="CodeMirror-gutter-filler" not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1" draggable="false"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 348.562px; margin-bottom: -15px; border-right-width: 15px; min-height: 300px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style="visibility: hidden;"><div class="CodeMirror-cursor" style="left: 261px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code" style=""><pre><span style="padding-right: 0.1px;"><span class="cm-comment">//  Adding Cogrouped Key values</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">val</span> <span class="cm-variable">rdd3</span> <span class="cm-operator">=</span> <span class="cm-variable">rdd1</span>.<span class="cm-variable">cogroup</span>(<span class="cm-variable">rdd2</span>)</span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">val</span> <span class="cm-variable">rdd4</span> <span class="cm-operator">=</span> <span class="cm-variable">rdd3</span>.<span class="cm-variable">map</span>{ x =&gt;</span></pre><pre class=""><span style="padding-right: 0.1px;">  {</span></pre><pre class=""><span style="padding-right: 0.1px;">        <span class="cm-keyword">var</span> <span class="cm-variable">key</span> <span class="cm-operator">=</span> <span class="cm-variable">x</span>.<span class="cm-variable">_1</span></span></pre><pre class=""><span style="padding-right: 0.1px;">        <span class="cm-keyword">var</span> <span class="cm-variable">values</span> <span class="cm-operator">=</span> <span class="cm-variable">x</span>.<span class="cm-variable">_2</span></span></pre><pre class=""><span style="padding-right: 0.1px;">        </span></pre><pre class=""><span style="padding-right: 0.1px;">        <span class="cm-keyword">var</span> <span class="cm-variable">sum1</span>,<span class="cm-variable">sum2</span><span class="cm-operator">=</span><span class="cm-number">0</span></span></pre><pre class=""><span style="padding-right: 0.1px;">        <span class="cm-comment">//values.foreach(v=&gt; sum += v(0))</span></span></pre><pre class=""><span style="padding-right: 0.1px;">        <span class="cm-comment">//(key,sum)</span></span></pre><pre class=""><span style="padding-right: 0.1px;">        <span class="cm-variable">values</span>.<span class="cm-variable">_1</span>.<span class="cm-variable">map</span>(<span class="cm-variable">x</span><span class="cm-operator">=&gt;</span><span class="cm-variable">sum1</span><span class="cm-operator">=</span><span class="cm-variable">x</span>)</span></pre><pre class=""><span style="padding-right: 0.1px;">        <span class="cm-variable">values</span>.<span class="cm-variable">_2</span>.<span class="cm-variable">map</span>(<span class="cm-variable">x</span><span class="cm-operator">=&gt;</span><span class="cm-variable">sum2</span><span class="cm-operator">=</span><span class="cm-variable">x</span>)</span></pre><pre class=""><span style="padding-right: 0.1px;">        (<span class="cm-variable">key</span>,<span class="cm-variable">sum1</span><span class="cm-operator">+</span><span class="cm-variable">sum2</span>)</span></pre><pre class=""><span style="padding-right: 0.1px;">  }     </span></pre><pre class=""><span style="padding-right: 0.1px;">} </span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">rdd4</span> <span class="cm-variable">foreach</span> <span class="cm-keyword">println</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 15px; width: 1px; top: 300px;"></div><div class="CodeMirror-gutters" style="display: none; height: 315px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper"><div class="out_prompt_overlay prompt" title="click to scroll output; double click to hide" style="display: block;"></div><div class="output" style=""><div class="output_area"><div class="prompt"></div><div class="output_subarea output_text output_stream output_stdout"><pre>(key4,7)
+(key2,10)
+(key5,2)
+(key1,5)
+(key3,14)
+rdd3: org.apache.spark.rdd.RDD[(String, (Iterable[Int], Iterable[Int]))] = MapPartitionsRDD[113] at cogroup at &lt;console&gt;:63
+rdd4: org.apache.spark.rdd.RDD[(String, Int)] = MapPartitionsRDD[114] at map at &lt;console&gt;:65
+</pre></div></div><div class="output_area"><div class="prompt output_prompt">33:</div><div class="output_subarea output_html rendered_html output_result"><div class="pull-right text-info"><small>Took: 1 second 239 milliseconds, at 2018-1-16 15:41</small></div></div></div></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div><div class="progress">          <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style=""><a class="cancel-cell-btn" style="display: none;">cancel</a></div>        </div></div><div class="cell code_cell col-md-12 unrendered unselected" tabindex="2" data-cell-id="D03640C5FF0844DF9E6168581FCE8554"><div class="input"><div class="prompt input_prompt">&nbsp;:</div><div class="inner_cell"><div class="ctb_hideshow"><div class="celltoolbar"></div></div><div class="input_area"><div class="CodeMirror cm-s-ipython"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 5.59375px; left: 5.59375px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-vscrollbar" not-content="true"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-hscrollbar" not-content="true"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-scrollbar-filler" not-content="true"></div><div class="CodeMirror-gutter-filler" not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-width: 3px; margin-bottom: -15px; border-right-width: 15px; min-height: 28px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-cursors" style=""><div class="CodeMirror-cursor" style="left: 0px; top: 0px; height: 17px;">&nbsp;</div></div><div class="CodeMirror-code"><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 15px; width: 1px; top: 28px;"></div><div class="CodeMirror-gutters" style="display: none; height: 43px;"></div></div></div></div></div></div><div class="widget-area" style="display: none;"><div class="prompt"><button class="close">×</button></div><div class="widget-subarea"></div></div><div class="output_wrapper show-me-back" style="display: flex;"><div class="out_prompt_overlay prompt" title="click to expand output; double click to hide output" style="display: none;"></div><div class="output" style="display: none;"></div><div class="btn btn-default output_collapsed" title="click to expand output" style="display: none;">. . .</div></div><div class="progress">          <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">          </div>        </div></div></div><div class="end_space"></div></div>
+
+          <div id="notebook-panels" class="col-md-3">
+            <div id="sidebar" class="gridster hidden ready" style="top: 11.5px;">
+                <ul style="height: 750px; width: 162.75px; position: relative;">
+                    <li class="widget gs-w" data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+                        <h4 id="spark-jobs">Spark Job Progress</h4>
+                        <div id="all-jobs-progress-bar"><div class="progress">            <div id="jobs-progress-done" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">            </div>            <div id="jobs-progress-pending" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">            </div>        </div></div>
+                    <span class="gs-resize-handle gs-resize-handle-both"></span></li>
+
+                    <li class="widget gs-w" data-row="2" data-col="1" data-sizex="2" data-sizey="7">
+                        <h4>Terms defined</h4>
+                        <div id="termDefinitions" style="overflow: auto; height: 314px;"><table style="width: 100%;" class="table table-bordered table-hover">    <thead>        <tr><th>Name</th><th>Type</th></tr>    </thead>    <tbody data-bind="foreach: definitions.data">        <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res1</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res4</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res6</td>            <td data-bind="text: type, click: $parent.hightlightCell">Array[Tuple2]</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res8</td>            <td data-bind="text: type, click: $parent.hightlightCell">Array[Tuple2]</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res10</td>            <td data-bind="text: type, click: $parent.hightlightCell">Array[Tuple2]</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res12</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res14</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res16</td>            <td data-bind="text: type, click: $parent.hightlightCell">org.apache.spark.rdd.RDD</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res18</td>            <td data-bind="text: type, click: $parent.hightlightCell">org.apache.spark.rdd.RDD</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res20</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res22</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res24</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">rdd1</td>            <td data-bind="text: type, click: $parent.hightlightCell">org.apache.spark.rdd.RDD</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">rdd2</td>            <td data-bind="text: type, click: $parent.hightlightCell">org.apache.spark.rdd.RDD</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res27</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res30</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res34</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res36</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res46</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res52</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res56</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res58</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">rdd3</td>            <td data-bind="text: type, click: $parent.hightlightCell">org.apache.spark.rdd.RDD</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">rdd4</td>            <td data-bind="text: type, click: $parent.hightlightCell">org.apache.spark.rdd.RDD</td>        </tr>            <tr>            <td data-bind="text: name, click: $parent.hightlightCell">res60</td>            <td data-bind="text: type, click: $parent.hightlightCell">Unit</td>        </tr>    </tbody></table></div>
+                    <span class="gs-resize-handle gs-resize-handle-both"></span></li>
+
+                    <li class="widget gs-w" data-row="9" data-col="1" data-sizex="2" data-sizey="3">
+                        <h4>Error logs (see browser console for more)</h4>
+                        <ul id="logsPanel" style="overflow: auto; height: 114px;"><li class="text text-danger" title="console log id: ui-logs-129. Click to print again">[org.apache.spark.SparkContext] Error adding jar (java.lang.IllegalArgumentException: /home/maniram/spark-notebook-0.7.0/bin cannot be a directory.), was the --addJars option used?</li></ul>
+                    <span class="gs-resize-handle gs-resize-handle-both"></span></li>
+
+                    <li class="widget gs-w" data-row="12" data-col="1" data-sizex="2" data-sizey="4">
+                        <div id="chat-room">
+                            <h4>Chat Room</h4>
+                            <input type="text" name="alias" class="form-control" data-bind="value: chat.alias, hasFocus: chat.aliasing" placeholder="Choose an alias">
+                            <div class="room">
+                                <ul class="chat" style="list-style:none; overflow: auto; height: 130px;" data-bind="foreach: chat.messages"></ul>
+                                <input type="text" name="message" class="form-control" placeholder="Type your message..." data-bind="enable: chat.joined, value: chat.new_message, hasFocus: chat.chatting" disabled="">
+                            </div>
+                        </div>
+                    <span class="gs-resize-handle gs-resize-handle-both"></span></li>
+                </ul>
+            </div>
+          </div>
+      </div>
+  </div>
+
+  <div id="pager" class="ui-resizable">
+      <div id="pager-contents">
+          <div id="pager-container" class="container"></div>
+      </div>
+      <div id="pager-button-area"><a role="button" title="Open the pager in an external window" class="ui-button"><span class="ui-icon ui-icon-extlink"></span></a><a role="button" title="Close the pager" class="ui-button"><span class="ui-icon ui-icon-close"></span></a></div>
+  <div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div></div>
+
+  <div id="tooltip" class="ipython_tooltip" style="display:none"><div class="tooltipbuttons"><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#" role="button" class="ui-button"><span class="ui-icon ui-icon-close">Close</span></a><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#" class="ui-corner-all" role="button" id="expanbutton" title="Grow the tooltip vertically (press shift-tab twice)"><span class="ui-icon ui-icon-plus">Expand</span></a><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#" role="button" class="ui-button" title="show the current docstring in pager (press shift-tab 4 times)"><span class="ui-icon ui-icon-arrowstop-l-n">Open in Pager</span></a><a href="http://localhost:9001/notebooks/PairRDDfunctions_2arg.snb#" role="button" class="ui-button" title="Tootip is not dismissed while typing for 10 seconds" style="display: none;"><span class="ui-icon ui-icon-clock">Close</span></a></div><div class="pretooltiparrow"></div><div class="tooltiptext smalltooltip"></div></div>
+
+        <footer class="footer">
+          <div class="container">
+            <p class="text-muted">Build: | <span>&nbsp;<strong>buildTime</strong>-<em>Thu Dec 21 13:04:00 UTC 2017</em>&nbsp;|</span><span>&nbsp;<strong>formattedShaVersion</strong>-<em>0.7.0-743db69157361e7f476c80b9507060482add9383</em>&nbsp;|</span><span>&nbsp;<strong>sbtVersion</strong>-<em>0.13.8</em>&nbsp;|</span><span>&nbsp;<strong>scalaVersion</strong>-<em>2.11.7</em>&nbsp;|</span><span>&nbsp;<strong>sparkNotebookVersion</strong>-<em>0.7.0</em>&nbsp;|</span><span>&nbsp;<strong>hadoopVersion</strong>-<em>2.7.2</em>&nbsp;|</span><span>&nbsp;<strong>jets3tVersion</strong>-<em>0.7.1</em>&nbsp;|</span><span>&nbsp;<strong>jlineDef</strong>-<em>(jline,2.12)</em>&nbsp;|</span><span>&nbsp;<strong>sparkVersion</strong>-<em>1.6.3</em>&nbsp;|</span><span>&nbsp;<strong>withHive</strong>-<em>false</em>&nbsp;|</span><span>&nbsp;<strong>withParquet</strong>-<em>false</em>&nbsp;|</span>.
+            </p>
+          </div>
+        </footer>
+        </div>
+
+        
+  <!-- script -->
+  <script type="text/javascript">
+      sys_info = "missing: sys_info";
+  </script>
+  <script src="./PairRDDfunctions_2arg_files/bokeh.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./PairRDDfunctions_2arg_files/encoding.js" charset="utf-8"></script>
+  <!-- main app -->
+  <script src="./PairRDDfunctions_2arg_files/main.js" charset="utf-8"></script>
+
+    
+
+
+<ul class="vakata-context"></ul><div id="jstree-marker" style="display: none;">&nbsp;</div><iframe frameborder="0" scrolling="no" style="background-color: transparent; border: 0px; display: none;" src="./PairRDDfunctions_2arg_files/saved_resource.html"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:true,&quot;ss&quot;:true}"></div><div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: STIXSizeOneSym, sans-serif;"></div></div></body></html>
