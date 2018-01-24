@@ -3,6 +3,22 @@ package example
 import org.apache.spark.{SparkContext,SparkConf}
 import org.apache.spark.rdd.RDD
 
+
+/*
+
+******************************************************************************************
+
+  Convert the This scala file in jar package using sbt or any other tools and submit
+  jar package using command
+  
+  spark-submit <jar package name>  <input file path> <output file path>  <string to be counteded in the input file (optionl )>
+  
+ 
+ Third argument to the jar package is optional. It will be used only when you want to search a particular string 
+
+******************************************************************************************
+*/
+
 /**
   * Created by maniram on 24/1/18.
   */
